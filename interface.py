@@ -2,8 +2,24 @@ import tkinter as tk
 import pandas as pd
 import numpy as np
 
-consultas_csv = pd.read_csv("consultas.csv")
+consultas_csv = pd.read_csv("paciente.csv")
 consultas = pd.DataFrame(consultas_csv)
+
+import pandas as pd
+
+def filtra_data(df, string):
+    # Lista para armazenar as linhas correspondentes
+    linhas_filtradas = []
+    
+    # Itera sobre cada linha do dataframe
+    for index, row in df.iterrows():
+        # Verifica se a string está presente em algum valor da linha
+        if string in row.values:
+            linhas_filtradas.append(row)
+    
+    return linhas_filtradas
+
+
 
 class TelaPrincipal(tk.Frame):
     def __init__(self, master=None):
@@ -75,13 +91,19 @@ class TelaCadastro(tk.Frame):
         self.entry_nome = tk.Entry(self.master)
         self.entry_nome.grid(row=3, column=1, padx=5, pady=5)
 
+        self.label_data = tk.Label(
+            self.master, text="Data:")
+        self.label_data.grid(row=4, column=0, padx=5, pady=5)
+        self.entry_data = tk.Entry(self.master)
+        self.entry_data.grid(row=4, column=1, padx=5, pady=5)
+
         self.button_cadastrar = tk.Button(
             self.master, text="Cadastrar", command=self.cadastrar)
-        self.button_cadastrar.grid(row=4, column=0, padx=5, pady=5)
+        self.button_cadastrar.grid(row=5, column=0, padx=5, pady=5)
 
         self.button_voltar = tk.Button(
             self.master, text="voltar", command=self.voltar)
-        self.button_voltar.grid(row=4, column=1, padx=5, pady=5)
+        self.button_voltar.grid(row=5, column=1, padx=5, pady=5)
 
     def voltar(self):
         self.master.destroy()
@@ -93,9 +115,10 @@ class TelaCadastro(tk.Frame):
         hora_inicio = self.entry_inicio.get()
         hora_fim = self.entry_fim.get()
         cpf = self.entry_cpf.get()
+        data = self.entry_data.get()
 
         nova_linha = {'cpf_paciente': cpf, 'paciente': nome,
-                      'inicio': hora_inicio,'termino':hora_fim}
+                      'inicio': hora_inicio,'termino':hora_fim,'data':data}
         
         consultas.loc[len(consultas)] = nova_linha
 
@@ -138,13 +161,53 @@ class ListaConsultas(tk.Frame):
             self.master, text="voltar", command=self.voltar)
         self.button_voltar.grid(row=3, column=1, padx=5, pady=5)
 
+        self.button_voltar = tk.Button(
+            self.master, text="pesquisar", command=self.pesquisar)
+        self.button_voltar.grid(row=3, column=0, padx=5, pady=5)
+
     def voltar(self):
         self.master.destroy()
         nova_tela = tk.Tk()
         TelaPrincipal(nova_tela)
+    
+    def pesquisar(self):
+        data = self.entry_consulta.get()
 
+        data_c = filtra_data(consultas,data)
 
+        self.master.destroy()
+        nova_tela = tk.Tk()
+        ListBoxConsultas(nova_tela,data=data_c)
 
+class ListBoxConsultas(tk.Frame):
+    def __init__(self,master=None,data=list):
+        super().__init__(master)
+        self.master = master
+        self.master.title("consultas do dia x")
+
+        # criando a Listbox
+        self.listbox_consultas = tk.Listbox(self.master)
+        self.listbox_consultas.pack(padx=5, pady=5)
+
+        # Fazer a busca no grafo das pessoas que escutam aquele mesmo artista ou artistas o mais parecido possivel e retornar em um for dando insert
+        # Adicionar itens à Listbox (apenas como exemplo)
+        print(data)
+
+        for i in data:
+            self.listbox_consultas.insert(tk.END, i)
+
+        # botao conectar
+
+        self.button_voltar = tk.Button(
+            self.master, text="Voltar", command=self.voltar)
+        self.button_voltar.pack(padx=5, pady=5)
+
+    # funcao de voltar
+
+    def voltar(self):
+        self.master.destroy()
+        nova_tela = tk.Tk()
+        TelaPrincipal(nova_tela) 
 
 
 root = tk.Tk()
