@@ -1,7 +1,9 @@
 import tkinter as tk
+import pandas as pd
+import numpy as np
 
-
-
+consultas_csv = pd.read_csv("consultas.csv")
+consultas = pd.DataFrame(consultas_csv)
 
 class TelaPrincipal(tk.Frame):
     def __init__(self, master=None):
@@ -67,13 +69,19 @@ class TelaCadastro(tk.Frame):
         self.entry_cpf = tk.Entry(self.master)
         self.entry_cpf.grid(row=2, column=1, padx=5, pady=5)
 
+        self.label_nome = tk.Label(
+            self.master, text="Nome do paciente:")
+        self.label_nome.grid(row=3, column=0, padx=5, pady=5)
+        self.entry_nome = tk.Entry(self.master)
+        self.entry_nome.grid(row=3, column=1, padx=5, pady=5)
+
         self.button_cadastrar = tk.Button(
             self.master, text="Cadastrar", command=self.cadastrar)
-        self.button_cadastrar.grid(row=3, column=0, padx=5, pady=5)
+        self.button_cadastrar.grid(row=4, column=0, padx=5, pady=5)
 
         self.button_voltar = tk.Button(
             self.master, text="voltar", command=self.voltar)
-        self.button_voltar.grid(row=3, column=1, padx=5, pady=5)
+        self.button_voltar.grid(row=4, column=1, padx=5, pady=5)
 
     def voltar(self):
         self.master.destroy()
@@ -81,9 +89,17 @@ class TelaCadastro(tk.Frame):
         TelaPrincipal(nova_tela)
 
     def cadastrar(self):
+        nome = self.entry_nome.get()
         hora_inicio = self.entry_inicio.get()
         hora_fim = self.entry_fim.get()
         cpf = self.entry_cpf.get()
+
+        nova_linha = {'cpf_paciente': cpf, 'paciente': nome,
+                      'inicio': hora_inicio,'termino':hora_fim}
+        
+        consultas.loc[len(consultas)] = nova_linha
+
+        print(consultas)
 
         self.master.destroy()
         nova_tela = tk.Tk()
