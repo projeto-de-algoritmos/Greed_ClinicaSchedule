@@ -11,14 +11,11 @@ def filtra_data(df, string):
     # Lista para armazenar as linhas correspondentes
     linhas_filtradas = []
     
-    # Itera sobre cada linha do dataframe
-    for index, row in df.iterrows():
-        # Verifica se a string está presente em algum valor da linha
-        if string in row.values:
-            linhas_filtradas.append(row)
-    
-    return linhas_filtradas
+    filtro = df[df["data"] == string]
 
+    linhas_filtradas = filtro["cpf_paciente"].to_list()
+
+    return linhas_filtradas
 
 
 class TelaPrincipal(tk.Frame):
