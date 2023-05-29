@@ -132,9 +132,45 @@ class TelaPesqConsulta(tk.Frame):
         self.master = master
         self.master.title("Pesquisa Consulta")
 
+        self.label_cpf = tk.Label(self.master, text="cpf do paciente:")
+        self.label_cpf.grid(row=0, column=0, padx=5, pady=5)
+        self.entry_cpf = tk.Entry(self.master)
+        self.entry_cpf.grid(row=0, column=1, padx=5, pady=5)
+
         self.button_voltar = tk.Button(
             self.master, text="voltar", command=self.voltar)
-        self.button_voltar.grid(row=3, column=1, padx=5, pady=5)
+        self.button_voltar.grid(row=3, column=0, padx=5, pady=5)
+
+        self.button_pesquisar = tk.Button(
+           self.master,text='pesqusiar',command=self.pesquisar 
+        )
+        self.button_pesquisar.grid(row=3,column=1,padx=5,pady=5)
+
+    def pesquisar(self):
+        cpf = self.entry_cpf.get()
+        self.master.destroy()
+        nova_tela = tk.Tk()
+        TelaConsulta(nova_tela,cpf=cpf)    
+
+    def voltar(self):
+        self.master.destroy()
+        nova_tela = tk.Tk()
+        TelaPrincipal(nova_tela)
+
+
+class TelaConsulta(tk.Frame):
+    def __init__(self,master=None,cpf=int):
+        super().__init__(master)
+        self.master = master
+        self.master.title("Consulta paciente")
+
+
+        self.label_cpf = tk.Label(self.master, text=f"Consulta ...")
+        self.label_cpf.grid(row=0, column=0, padx=5, pady=5)
+
+        self.button_voltar = tk.Button(
+            self.master, text="voltar", command=self.voltar)
+        self.button_voltar.grid(row=3, column=0, padx=5, pady=5)
 
     def voltar(self):
         self.master.destroy()
@@ -158,9 +194,9 @@ class ListaConsultas(tk.Frame):
             self.master, text="voltar", command=self.voltar)
         self.button_voltar.grid(row=3, column=1, padx=5, pady=5)
 
-        self.button_voltar = tk.Button(
+        self.button_pesquisar = tk.Button(
             self.master, text="pesquisar", command=self.pesquisar)
-        self.button_voltar.grid(row=3, column=0, padx=5, pady=5)
+        self.button_pesquisar.grid(row=3, column=0, padx=5, pady=5)
 
     def voltar(self):
         self.master.destroy()
@@ -193,13 +229,11 @@ class ListBoxConsultas(tk.Frame):
         for i in data:
             self.listbox_consultas.insert(tk.END, i)
 
-        # botao conectar
-
         self.button_voltar = tk.Button(
             self.master, text="Voltar", command=self.voltar)
         self.button_voltar.pack(padx=5, pady=5)
 
-    # funcao de voltar
+
 
     def voltar(self):
         self.master.destroy()
