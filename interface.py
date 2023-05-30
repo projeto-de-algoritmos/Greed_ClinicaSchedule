@@ -5,7 +5,71 @@ import numpy as np
 consultas_csv = pd.read_csv("paciente.csv")
 consultas = pd.DataFrame(consultas_csv)
 
+atendimento_csv = pd.read_csv("atendimento.csv")
+atendimento = pd.DataFrame(atendimento_csv)
+
 import pandas as pd
+
+
+def obter_nome_por_cpf(cpf, dataframe):
+    # Filtra as linhas do dataframe com base no CPF
+    
+    linhas_filtradas = dataframe[dataframe['cpf_paciente'] == cpf]
+ 
+    
+    # Verifica se há linhas correspondentes ao CPF
+    if not linhas_filtradas.empty:
+        # Obtém o valor da coluna "nome"
+        
+        nome = linhas_filtradas.iloc[0]['paciente']
+        return nome
+    else:
+        return None
+    
+def obter_inicio_por_cpf(cpf, dataframe):
+    # Filtra as linhas do dataframe com base no CPF
+    
+    linhas_filtradas = dataframe[dataframe['cpf_paciente'] == cpf]
+
+    
+    # Verifica se há linhas correspondentes ao CPF
+    if not linhas_filtradas.empty:
+        # Obtém o valor da coluna "nome"
+        
+        inicio = linhas_filtradas.iloc[0]['inicio']
+        return inicio
+    else:
+        return None
+    
+def obter_fim_por_cpf(cpf, dataframe):
+    # Filtra as linhas do dataframe com base no CPF
+    
+    linhas_filtradas = dataframe[dataframe['cpf_paciente'] == cpf]
+    
+    # Verifica se há linhas correspondentes ao CPF
+    if not linhas_filtradas.empty:
+        # Obtém o valor da coluna "nome"
+        
+        fim = linhas_filtradas.iloc[0]['termino']
+        return fim
+    else:
+        return None
+
+def obter_medico_por_cpf(cpf, dataframe):
+    # Filtra as linhas do dataframe com base no CPF
+    
+    linhas_filtradas = dataframe[dataframe['cpf_paciente'] == cpf]
+
+    
+    # Verifica se há linhas correspondentes ao CPF
+    if not linhas_filtradas.empty:
+        # Obtém o valor da coluna "nome"
+        
+        medico = linhas_filtradas.iloc[0]['medico']
+        return medico
+    else:
+        return None
+
 
 def filtra_data(df, string):
     # Lista para armazenar as linhas correspondentes
@@ -119,7 +183,6 @@ class TelaCadastro(tk.Frame):
         
         consultas.loc[len(consultas)] = nova_linha
 
-        print(consultas)
 
         self.master.destroy()
         nova_tela = tk.Tk()
@@ -164,13 +227,32 @@ class TelaConsulta(tk.Frame):
         self.master = master
         self.master.title("Consulta paciente")
 
+        print(consultas)
 
-        self.label_cpf = tk.Label(self.master, text=f"Consulta ...")
+        nome = obter_nome_por_cpf(int(cpf),consultas)
+        inicio = obter_inicio_por_cpf(int(cpf),consultas)
+        fim = obter_fim_por_cpf(int(cpf),consultas)
+        medico = obter_medico_por_cpf(int(cpf),atendimento)
+
+
+        self.label_cpf = tk.Label(self.master, text=f"Consulta do(a){nome}")
         self.label_cpf.grid(row=0, column=0, padx=5, pady=5)
+
+        self.label_cpf = tk.Label(self.master, text=f"Com inicio: {inicio}")
+        self.label_cpf.grid(row=1, column=0, padx=5, pady=5)
+
+        self.label_cpf = tk.Label(self.master, text=f"Com termino: {fim}")
+        self.label_cpf.grid(row=2, column=0, padx=5, pady=5)
+        
+        self.label_cpf = tk.Label(self.master, text=f"Com Medico(a): {medico}")
+        self.label_cpf.grid(row=3, column=0, padx=5, pady=5)
+        
+
+        
 
         self.button_voltar = tk.Button(
             self.master, text="voltar", command=self.voltar)
-        self.button_voltar.grid(row=3, column=0, padx=5, pady=5)
+        self.button_voltar.grid(row=4, column=0, padx=5, pady=5)
 
     def voltar(self):
         self.master.destroy()
