@@ -14,8 +14,6 @@
 O projeto tem o objetivo de criar um sistema de clinica utilizando os algoritmos ambiciosos de interval partitioning e interval schedule
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
-
 
 ### Tela de inserir campos busca consulta
 
@@ -45,9 +43,9 @@ Para rodar o projeto sera necessario o python em sua versao mais recente.As bibi
 
 Instale a versao mais recente do python e o gerenciador de pacotes pip em sua maquina. 2 - Instale as seguintes bibliotecas com os seguintes comandos.
 
-pip install tk
-pip install pandas
-pip install numpy
+- pip install tk
+- pip install pandas
+- pip install numpy
 
 ## Uso 
  1 - Clone o projeto deste repositorio em uma pasta com o seguinte comando:
