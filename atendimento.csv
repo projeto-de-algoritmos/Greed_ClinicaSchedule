@@ -1,14 +1,11 @@
-,cpf_paciente,inicio,termino,medico
-0,14527839605,08:00,09:00,Lucas Mendes Castro
-1,90271483029,09:30,10:45,Lucas Mendes Castro
-2,87642103957,13:00,14:45,Isabella Santos Rocha
-3,78926354107,15:15,17:00,Isabella Santos Rocha
-4,48095627361,17:30,19:00,Isabella Santos Rocha
-5,18352609734,21:15,22:45,Guilherme Lima Oliveira
-6,40921835672,23:45,01:15,Guilherme Lima Oliveira
-7,63789215640,10:15,11:30,Laura Ferreira Costa
-8,20159476283,11:45,13:15,Laura Ferreira Costa
-9,41530968722,14:30,15:30,Matheus Oliveira Cardoso
-10,32516790847,16:45,17:45,Matheus Oliveira Cardoso
-11,56389274105,18:45,20:15,Matheus Oliveira Cardoso
-12,92047365821,20:00,21:30,Sophia Silva Carvalho
+,ind,cpf_paciente,inicio,termino,medico,sala
+0,0,14527839605,08:00,09:00,Lucas Mendes Castro,1
+1,7,63789215640,10:15,11:30,Laura Ferreira Costa,1
+2,2,87642103957,13:00,14:45,Isabella Santos Rocha,1
+3,9,41530968722,14:30,15:30,Matheus Oliveira Cardoso,2
+4,3,78926354107,15:15,17:00,Isabella Santos Rocha,3
+5,10,32516790847,16:45,17:45,Matheus Oliveira Cardoso,4
+6,4,48095627361,17:30,19:00,Isabella Santos Rocha,5
+7,11,56389274105,18:45,20:15,Matheus Oliveira Cardoso,6
+8,12,92047365821,20:00,21:30,Sophia Silva Carvalho,7
+9,5,18352609734,21:15,22:45,Guilherme Lima Oliveira,8
