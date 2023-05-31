@@ -16,6 +16,27 @@ O projeto tem o objetivo de criar um sistema de clinica utilizando os algoritmos
 ## Screenshots
 Adicione 3 ou mais screenshots do projeto em funcionamento.
 
+
+### Tela de inserir campos busca consulta
+
+![](video/tela_consulta.PNG)
+
+### Tela de resultado busca consulta
+
+![](video/consulta.PNG)
+
+### Tela de inserir campos data
+
+![](video/tela_data.PNG)
+
+### Tela de receber resultado pesquisa data
+
+![](video/pesquisa_data.PNG)
+
+### Tela de cadastro
+
+![](video/tela_cadastro.PNG)
+
 ## Instalação 
 **Linguagem**: Python<br>
 **Bibliotecas**:Pandas,Numpy,Tkinter
@@ -45,6 +66,5 @@ Apos aberto no terminal execute o seguinte comando para executar a aplicação: 
 Link do video:
 
 https://youtu.be/DXL7VzZPNuc
-
 
 
