@@ -42,6 +42,9 @@ Apos aberto no terminal execute o seguinte comando para executar a aplicação: 
 
 ## Apresentação
 
+Link do video:
+
+https://youtu.be/DXL7VzZPNuc
 
 
 
