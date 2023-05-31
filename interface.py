@@ -1,6 +1,7 @@
 import tkinter as tk
 import pandas as pd
 import numpy as np
+from partitioning import interval_partioniong
 
 consultas_csv = pd.read_csv("paciente.csv")
 consultas = pd.DataFrame(consultas_csv)
@@ -78,6 +79,21 @@ def obter_medico_por_cpf(cpf, dataframe):
         
         medico = linhas_filtradas.iloc[0]['medico']
         return medico
+    else:
+        return None
+    
+def obter_sala_por_cpf(cpf, dataframe):
+    # Filtra as linhas do dataframe com base no CPF
+    
+    linhas_filtradas = dataframe[dataframe['cpf_paciente'] == cpf]
+
+    
+    # Verifica se há linhas correspondentes ao CPF
+    if not linhas_filtradas.empty:
+        # Obtém o valor da coluna "nome"
+        
+        sala = linhas_filtradas.iloc[0]['sala']
+        return sala
     else:
         return None
 
@@ -193,8 +209,6 @@ class KnapsackConsulta(tk.Frame):
     def knapsack(self):
         horas = self.entry_horas.get()
     
-
-class Knapsack(tk.Frame):
     
 
 
@@ -302,13 +316,15 @@ class TelaConsulta(tk.Frame):
         self.master = master
         self.master.title("Consulta paciente")
 
-        print(consultas)
+
 
         nome = obter_nome_por_cpf(int(cpf),consultas)
         inicio = obter_inicio_por_cpf(int(cpf),consultas)
         fim = obter_fim_por_cpf(int(cpf),consultas)
         medico = obter_medico_por_cpf(int(cpf),atendimento)
+        sala = obter_sala_por_cpf(int(cpf),atendimento)
 
+        print(sala)
 
         self.label_cpf = tk.Label(self.master, text=f"Consulta do(a){nome}")
         self.label_cpf.grid(row=0, column=0, padx=5, pady=5)
@@ -319,8 +335,10 @@ class TelaConsulta(tk.Frame):
         self.label_cpf = tk.Label(self.master, text=f"Com termino: {fim}")
         self.label_cpf.grid(row=2, column=0, padx=5, pady=5)
         
-        self.label_cpf = tk.Label(self.master, text=f"Com Medico(a): {medico}")
+        self.label_cpf = tk.Label(self.master, text=f"Com Medico(a): {medico} na sala {sala}")
         self.label_cpf.grid(row=3, column=0, padx=5, pady=5)
+
+        
         
 
         
