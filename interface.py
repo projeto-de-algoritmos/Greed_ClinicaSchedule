@@ -10,6 +10,17 @@ atendimento = pd.DataFrame(atendimento_csv)
 
 import pandas as pd
 
+# Exemplo de uso
+procedimentos = [
+    {'nome': 'Consulta médica', 'valor': 200, 'duracao': 1},
+    {'nome': 'Exame de sangue', 'valor': 150, 'duracao': 0.5},
+    {'nome': 'Raio-X', 'valor': 300, 'duracao': 1.5},
+    {'nome': 'Eletrocardiograma', 'valor': 250, 'duracao': 1},
+    {'nome': 'Tomografia', 'valor': 500, 'duracao': 2},
+    {'nome': 'Endoscopia', 'valor': 400, 'duracao': 1.5},
+]
+
+
 
 def obter_nome_por_cpf(cpf, dataframe):
     # Filtra as linhas do dataframe com base no CPF
@@ -103,6 +114,11 @@ class TelaPrincipal(tk.Frame):
             self.master,text="Consultas do dia",command=self.abrir_consulta_data
         )
         self.button_consultas_data.grid(row=4, column=0, padx=5, pady=5)
+        
+        self.button_consultas_data = tk.Button(
+            self.master,text="Procedimentos",command=self.abrir_tela_procedimento
+        )
+        self.button_consultas_data.grid(row=4, column=1, padx=5, pady=5)
 
 
     def abrir_tela_cadastro(self):
@@ -119,8 +135,67 @@ class TelaPrincipal(tk.Frame):
         self.master.destroy()
         nova_tela = tk.Tk()
         ListaConsultas(nova_tela)
+
+    def abrir_tela_procedimento(self):
+        self.master.destroy()
+        nova_tela = tk.Tk()
+        TelaProcedimentos(nova_tela)
+    
     
 
+class TelaProcedimentos(tk.Frame):
+    def __init__(self, master=None):
+        super().__init__(master)
+        self.master = master
+        self.master.title("Procedimentos")
+    
+        
+        # Criar lista
+        self.lista = tk.Listbox(self.master,height=10, width=90)
+        self.lista.pack()
+
+        self.botao = tk.Button(self.master, text="Tempo disponivel",command=self.abrir_tela_knap)
+        self.botao.pack()
+
+
+        # Adicionar procedimentos à lista
+        for procedimento in procedimentos:
+            nome = procedimento['nome']
+            valor = procedimento['valor']
+            duracao = procedimento['duracao']
+            item = f"{nome} - Valor: {valor} - Duração: {duracao} horas"
+            self.lista.insert(tk.END, item)
+
+    def abrir_tela_knap(self):
+        self.master.destroy()
+        nova_tela = tk.Tk()
+        KnapsackConsulta(nova_tela)
+    
+
+
+    
+class KnapsackConsulta(tk.Frame):
+    def __init__(self, master=None):
+        super().__init__(master)
+        self.master = master
+        self.master.title("Disponibilidade")
+
+        self.label_horas = tk.Label(self.master, text="Horas")
+        self.label_horas.grid(row=0, column=0, padx=5, pady=5)
+        self.entry_horas = tk.Entry(self.master)
+        self.entry_horas.grid(row=0, column=1, padx=5, pady=5)
+
+
+        self.button_cadastrar = tk.Button(
+            self.master, text="Priorizar consultas", command=self.knapsack)
+        self.button_cadastrar.grid(row=5, column=0, padx=5, pady=5)
+
+    def knapsack(self):
+        horas = self.entry_horas.get()
+    
+
+class Knapsack(tk.Frame):
+    
 
 
 class TelaCadastro(tk.Frame):
